@@ -100,30 +100,57 @@ class _HomePageState extends State<Home> {
                   },
                 ),
               ),
-              CarouselSlider(
-                options: CarouselOptions(
-                  height: 200,
-                  autoPlay: true,
-                  enlargeCenterPage: true,
-                ),
-                items: items.map(
-                  (item) {
-                    return Builder(
-                      builder: (BuildContext context) {
-                        return InkWell(
-                          onTap: () {
-                            print("mujhe mat maro");
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 15),
+                child: CarouselSlider(
+                  options: CarouselOptions(
+                    height: 200,
+                    autoPlay: true,
+                    enlargeCenterPage: true,
+                  ),
+                  items: items.map(
+                    (item) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return Container(
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)
+                              ),
+                              child: Stack(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.asset("assets/breaking.jpg",fit: BoxFit.fill,),
+                                  ),
+                                  Positioned(
+                                    left: 0,
+                                    right: 0,
+                                    bottom: 0,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(colors: [
+                                        Colors.black.withOpacity(0),
+                                        Colors.black
+                                        ],
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter
+                                        ),
+
+                                      ),
+                                    child:
+                                        Text("News Headline",style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.w500),)
+                                  ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          );
                           },
-                          child: Container(
-                            margin: EdgeInsets.symmetric(
-                                horizontal: 5, vertical: 14),
-                            child: Text(item),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                ).toList(),
+                      );
+                    },
+                  ).toList(),
+                ),
               ),
               Container(
                 child: ListView.builder(
@@ -178,7 +205,8 @@ class _HomePageState extends State<Home> {
                                 ),
                               ],
                             ),
-                          ));
+                          ),
+                      );
                     }),
               )
             ],
