@@ -21,7 +21,7 @@ class _HomePageState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("NewssieBee"),
+          title: Text("NewsieBee"),
           centerTitle: true,
         ),
         body: SingleChildScrollView(
@@ -129,6 +129,7 @@ class _HomePageState extends State<Home> {
                                     bottom: 0,
                                     child: Container(
                                       decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
                                         gradient: LinearGradient(colors: [
                                         Colors.black.withOpacity(0),
                                         Colors.black
@@ -139,7 +140,15 @@ class _HomePageState extends State<Home> {
 
                                       ),
                                     child:
-                                        Text("News Headline",style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.w500),)
+                                        Container(
+                                          padding: EdgeInsets.symmetric(horizontal: 5,vertical: 10),
+                                            child: Text(
+                                              "News Headline",style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w500),
+                                            ),
+                                        )
                                   ),
                                   )
                                 ],
@@ -153,61 +162,92 @@ class _HomePageState extends State<Home> {
                 ),
               ),
               Container(
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: 3,
-                    itemBuilder: (context, index) {
-                      return Container(
-                          margin:
-                              EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15)),
-                            elevation: 5.0,
-                            child: Stack(
-                              children: [
-                                ClipRRect(
-                                    borderRadius: BorderRadius.circular(15),
-                                    child: Image.asset(
-                                      "assets/breaking.jpg",
-                                    )),
-                                Positioned(
-                                    left: 0,
-                                    bottom: 0,
-                                    right: 0,
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                          gradient: LinearGradient(
-                                              colors: [
-                                                Colors.black.withOpacity(0),
-                                                Colors.black
-                                              ],
-                                              begin: Alignment.topCenter,
-                                              end: Alignment.bottomCenter),
-                                        ),
-                                        padding: EdgeInsets.fromLTRB(15,15,15,8),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "News Headline",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            Text("blah blah blah",style: TextStyle(color: Colors.white,fontSize: 12),)
-                                          ],
-                                        ),
-                                    ),
-                                ),
-                              ],
+                child: Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.fromLTRB(15,15,0,0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text("Latest News",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 28
                             ),
                           ),
-                      );
-                    }),
+                        ],
+                      ),
+                    ),
+                    ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: 3,
+                        itemBuilder: (context, index) {
+                          return Container(
+                              margin:
+                                  EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                              child: Card(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15)),
+                                elevation: 5.0,
+                                child: Stack(
+                                  children: [
+                                    ClipRRect(
+                                        borderRadius: BorderRadius.circular(15),
+                                        child: Image.asset(
+                                          "assets/breaking.jpg",
+                                        )),
+                                    Positioned(
+                                        left: 0,
+                                        bottom: 0,
+                                        right: 0,
+                                        child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              gradient: LinearGradient(
+                                                  colors: [
+                                                    Colors.black.withOpacity(0),
+                                                    Colors.black
+                                                  ],
+                                                  begin: Alignment.topCenter,
+                                                  end: Alignment.bottomCenter),
+                                            ),
+                                            padding: EdgeInsets.fromLTRB(15,15,15,8),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "News Headline",
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                                Text("blah blah blah",style: TextStyle(color: Colors.white,fontSize: 12),)
+                                              ],
+                                            ),
+                                        ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                          );
+                        }),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(0,10,0,5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+                              onPressed: (){},
+                              child: Text("Show More",style: TextStyle(color: Colors.white),),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               )
             ],
           ),
