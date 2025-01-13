@@ -149,24 +149,33 @@ class _HomePageState extends State<Home> {
                                     bottom: 0,
                                     right: 0,
                                     child: Container(
-                                      decoration: BoxDecoration(
-                                          gradient:LinearGradient(
-                                              colors:[
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          gradient: LinearGradient(
+                                              colors: [
                                                 Colors.black.withOpacity(0),
                                                 Colors.black
                                               ],
                                               begin: Alignment.topCenter,
-                                              end: Alignment.bottomCenter
-                                          ),
-                                      ),
-                                      padding: EdgeInsets.symmetric(horizontal: 10,vertical: 7),
-                                        child: Text(
-                                      "News Headline",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
-                                    )))
+                                              end: Alignment.bottomCenter),
+                                        ),
+                                        padding: EdgeInsets.fromLTRB(15,15,15,8),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "News Headline",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            Text("blah blah blah",style: TextStyle(color: Colors.white,fontSize: 12),)
+                                          ],
+                                        ),
+                                    ),
+                                ),
                               ],
                             ),
                           ));
