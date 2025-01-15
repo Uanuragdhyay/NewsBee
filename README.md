@@ -1,5 +1,12 @@
 # newsssie
 
+## About
+This is a Flutter application used for showing news of all aspects of human society. It uses Dart as the primary programming language and integrates the use of NEWSAPI.
+
+## Tech Stack
+- Flutter (Dart)
+
+
 A new Flutter project.
 
 ## Getting Started
