@@ -188,7 +188,7 @@ class _HomePageState extends State<Home> {
                         itemBuilder: (context, index) {
                           return Container(
                               margin:
-                                  EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                                  EdgeInsets.symmetric(horizontal: 12, vertical: 5),
                               child: Card(
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15)),
