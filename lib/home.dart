@@ -20,8 +20,10 @@ class _HomePageState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black.withBlue(20),
         appBar: AppBar(
-          title: Text("NewsieBee"),
+          backgroundColor: Colors.white10.withBlue(5000),
+          title: Text("Newsie Bee"),titleTextStyle: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),
           centerTitle: true,
         ),
         body: SingleChildScrollView(
@@ -32,7 +34,7 @@ class _HomePageState extends State<Home> {
                 padding: EdgeInsets.symmetric(horizontal: 8),
                 margin: EdgeInsets.symmetric(horizontal: 24, vertical: 20),
                 decoration: BoxDecoration(
-                    color: Colors.white,
+                  gradient: LinearGradient(colors: [Colors.grey,Colors.white,]),
                     borderRadius: BorderRadius.circular(24)),
                 child: Row(
                   children: [
@@ -61,7 +63,8 @@ class _HomePageState extends State<Home> {
                         },
                         decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: "Search Health"),
+                            hintText: "Search Health",
+                            hintStyle: TextStyle(color: Colors.black)),
                       ),
                     )
                   ],
@@ -172,7 +175,8 @@ class _HomePageState extends State<Home> {
                           Text("Latest News",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 28
+                              fontSize: 28,
+                              color: Colors.blue.shade100
                             ),
                           ),
                         ],
