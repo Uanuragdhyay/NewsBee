@@ -71,6 +71,8 @@ class _CategoryState extends State<Category> {
                   ],
                 ),
               ),
+
+              isLoading? Container(height: MediaQuery.of(context).size.height-450,child: Center(child: CircularProgressIndicator(),),) :
               ListView.builder(
         
                 shrinkWrap: true,

@@ -94,7 +94,7 @@ class _HomePageState extends State<Home> {
                         if ((searchController.text).replaceAll(" ", "") == "") {
                           print("Blank search");
                         } else {
-                          // Navigator.push(context, MaterialPageRoute(builder: (context) => Search(searchController.text)));
+                           Navigator.push(context, MaterialPageRoute(builder: (context) => Category(Query: searchController.text)));
                         }
                       },
                       child: Container(
@@ -109,8 +109,8 @@ class _HomePageState extends State<Home> {
                       child: TextField(
                         controller: searchController,
                         textInputAction: TextInputAction.search,
-                        onSubmitted: (value) {
-                          print(value);
+                        onSubmitted: (value) {Navigator.push(context, MaterialPageRoute(builder: (context) => Category(Query: value)));
+
                         },
                         decoration: InputDecoration(
                             border: InputBorder.none,
@@ -155,7 +155,7 @@ class _HomePageState extends State<Home> {
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 15),
-                child: CarouselSlider(
+                child: isLoading ? Container(height: 200 , child: Center(child: CircularProgressIndicator())): CarouselSlider(
                   options: CarouselOptions(
                     height: 200,
                     autoPlay: true,
@@ -211,7 +211,7 @@ class _HomePageState extends State<Home> {
                       );
                     },
                   ).toList(),
-                ),
+                ) ,
               ),
               Container(
                 child: Column(
@@ -231,6 +231,7 @@ class _HomePageState extends State<Home> {
                         ],
                       ),
                     ),
+                    isLoading? Container(height: MediaQuery.of(context).size.height-450,child: Center(child: CircularProgressIndicator(),),) :
                     ListView.builder(
 
                         shrinkWrap: true,
@@ -296,7 +297,9 @@ class _HomePageState extends State<Home> {
                         children: [
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
-                              onPressed: (){},
+                              onPressed: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> Category(Query: "technology")));
+                              },
                               child: Text("Show More",style: TextStyle(color: Colors.white),),
                           )
                         ],
@@ -310,10 +313,5 @@ class _HomePageState extends State<Home> {
         ));
   }
 
-  final List items = [
-    "Hello EveryOne",
-    "My Name Is Anurag",
-    "I am a Flutter Developer",
-    "And also a DSA enthusiast"
-  ];
+
 }
