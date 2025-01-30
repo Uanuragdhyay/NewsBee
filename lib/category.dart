@@ -74,7 +74,7 @@ class _CategoryState extends State<Category> {
 
               isLoading? Container(height: MediaQuery.of(context).size.height-450,child: Center(child: CircularProgressIndicator(),),) :
               ListView.builder(
-        
+                physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: newsModelList.length,
                 itemBuilder: (context, index) {

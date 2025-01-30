@@ -225,100 +225,104 @@ class _HomePageState extends State<Home> {
                 ) ,
               ),
               Container(
-                child: Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.fromLTRB(15,15,0,0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text("Latest News",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 28,
-                              color: Colors.blue.shade100
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    isLoading? Container(height: MediaQuery.of(context).size.height-450,child: Center(child: CircularProgressIndicator(),),) :
-                    ListView.builder(
+                child: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  child: Column(
 
-                        shrinkWrap: true,
-                        itemCount: newsModelList.length,
-                        itemBuilder: (context, index) {
-                          try{
-                          return Container(
-                              margin:
-                                  EdgeInsets.symmetric(horizontal: 12, vertical: 5),
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15)),
-                                elevation: 5.0,
-                                child: Stack(
-                                  children: [
-                                    ClipRRect(
-                                        borderRadius: BorderRadius.circular(15),
-                                        child: Image.network(
-                                          newsModelList[index].newsImg,fit: BoxFit.fitHeight, height: 230,width: double.infinity,
-                                        )
-                                    ),
-
-                                    Positioned(
-                                        left: 0,
-                                        bottom: 0,
-                                        right: 0,
-                                        child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              gradient: LinearGradient(
-                                                  colors: [
-                                                    Colors.black.withOpacity(0),
-                                                    Colors.black
-                                                  ],
-                                                  begin: Alignment.topCenter,
-                                                  end: Alignment.bottomCenter),
-                                            ),
-                                            padding: EdgeInsets.fromLTRB(15,15,15,8),
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  newsModelList[index].newsHead,
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 18,
-                                                      fontWeight: FontWeight.bold),
-                                                ),
-                                                Text(newsModelList[index].newsDes.length> 50 ? "${newsModelList[index].newsDes.substring(0,55)}...." : newsModelList[index].newsDes ,style: TextStyle(color: Colors.white,fontSize: 12),)
-                                              ],
-                                            ),
-                                        ),
-                                    ),
-                                  ],
-                                ),
+                    children: [
+                      Container(
+                        margin: EdgeInsets.fromLTRB(15,15,0,0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text("Latest News",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 28,
+                                color: Colors.blue.shade100
                               ),
-                          );
-                          }catch(e){print(e);return Container();}
-                        },),
-                    Container(
-                      padding: EdgeInsets.fromLTRB(0,10,0,5),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
-                              onPressed: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=> Category(Query: "technology")));
-                              },
-                              child: Text("Show More",style: TextStyle(color: Colors.white),),
-                          )
-                        ],
+                            ),
+                          ],
+                        ),
                       ),
-                    )
-                  ],
+                      isLoading? Container(height: MediaQuery.of(context).size.height-450,child: Center(child: CircularProgressIndicator(),),) :
+                      ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: newsModelList.length,
+                          itemBuilder: (context, index) {
+                            try{
+                            return Container(
+                                margin:
+                                    EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                                child: Card(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15)),
+                                  elevation: 5.0,
+                                  child: Stack(
+                                    children: [
+                                      ClipRRect(
+                                          borderRadius: BorderRadius.circular(15),
+                                          child: Image.network(
+                                            newsModelList[index].newsImg,fit: BoxFit.fitHeight, height: 230,width: double.infinity,
+                                          )
+                                      ),
+
+                                      Positioned(
+                                          left: 0,
+                                          bottom: 0,
+                                          right: 0,
+                                          child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                                gradient: LinearGradient(
+                                                    colors: [
+                                                      Colors.black.withOpacity(0),
+                                                      Colors.black
+                                                    ],
+                                                    begin: Alignment.topCenter,
+                                                    end: Alignment.bottomCenter),
+                                              ),
+                                              padding: EdgeInsets.fromLTRB(15,15,15,8),
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    newsModelList[index].newsHead,
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 18,
+                                                        fontWeight: FontWeight.bold),
+                                                  ),
+                                                  Text(newsModelList[index].newsDes.length> 50 ? "${newsModelList[index].newsDes.substring(0,55)}...." : newsModelList[index].newsDes ,style: TextStyle(color: Colors.white,fontSize: 12),)
+                                                ],
+                                              ),
+                                          ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                            );
+                            }catch(e){print(e);return Container();}
+                          },),
+                      Container(
+                        padding: EdgeInsets.fromLTRB(0,10,0,5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+                                onPressed: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=> Category(Query: "technology")));
+                                },
+                                child: Text("Show More",style: TextStyle(color: Colors.white),),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               )
             ],
