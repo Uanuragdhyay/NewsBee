@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:newsssie/category.dart';
 import 'package:newsssie/model.dart';
 import 'package:http/http.dart';
 
@@ -19,7 +20,6 @@ class _HomePageState extends State<Home> {
   List<String> navBarItems = [
     "Top News",
     "India",
-    "World",
     "Finance",
     "Health"
   ];
@@ -130,7 +130,7 @@ class _HomePageState extends State<Home> {
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
-                        print(navBarItems[index]);
+                       Navigator.push(context, MaterialPageRoute(builder: (context)=>Category(Query: navBarItems[index])));
                       },
                       child: Container(
                         padding:
