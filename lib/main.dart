@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:newsssie/home.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -30,11 +30,9 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
-        canvasColor: Colors.red,
-        useMaterial3: true,
-      ),
-      home: Home(title: "Flutter Demo Home Page"),
+        primarySwatch: Colors.blue,
+        ),
+      home: Home(),
     );
   }
 }

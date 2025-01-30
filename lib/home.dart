@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:newsssie/model.dart';
+import 'package:http/http.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key, required String title});
+  const Home({Key? key}) : super(key: key);
 
   @override
   State<Home> createState() => _HomePageState();
@@ -10,6 +14,8 @@ class Home extends StatefulWidget {
 
 class _HomePageState extends State<Home> {
   TextEditingController searchController = new TextEditingController();
+  List<NewsQueryModel> newsModelList = <NewsQueryModel>[];
+  List<NewsQueryModel> newsModelListCarousel = <NewsQueryModel>[];
   List<String> navBarItems = [
     "Top News",
     "India",
@@ -17,6 +23,51 @@ class _HomePageState extends State<Home> {
     "Finance",
     "Health"
   ];
+  bool isLoading = true;
+  getNewsByQuery(String query)async{
+    String url = "https://newsapi.org/v2/everything?q=$query&from=2024-12-30&sortBy=publishedAt&apiKey=5e756d527610412cbb388ff3f434d20f";
+    Response response = await get(Uri.parse(url));
+    Map data = jsonDecode(response.body);
+      setState(() {
+        data["articles"].forEach((element) {
+          NewsQueryModel newsQueryModel = new NewsQueryModel();
+          newsQueryModel = NewsQueryModel.fromMap(element);
+          newsModelList.add(newsQueryModel);
+          setState(() {
+            isLoading = false;
+          });
+        });
+      });
+    }
+
+
+  getNewsofIndia() async {
+    String url = "https://newsapi.org/v2/top-headlines?country=us&apiKey=5e756d527610412cbb388ff3f434d20f";
+    Response response = await get(Uri.parse(url));
+    Map data = jsonDecode(response.body);
+    setState(() {
+      data["articles"].forEach((element) {
+        NewsQueryModel newsQueryModel = new NewsQueryModel();
+        newsQueryModel = NewsQueryModel.fromMap(element);
+        newsModelListCarousel.add(newsQueryModel);
+        setState(() {
+          isLoading = false;
+        });
+
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getNewsByQuery("sports");
+    getNewsofIndia();
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,7 +124,6 @@ class _HomePageState extends State<Home> {
               Container(
                 height: 50,
                 child: ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
                   itemCount: navBarItems.length,
@@ -111,20 +161,19 @@ class _HomePageState extends State<Home> {
                     autoPlay: true,
                     enlargeCenterPage: true,
                   ),
-                  items: items.map(
-                    (item) {
+                  items: newsModelListCarousel.map((instance) {
                       return Builder(
                         builder: (BuildContext context) {
                           return Container(
                             child: Card(
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)
+                                borderRadius: BorderRadius.circular(10),
                               ),
                               child: Stack(
                                 children: [
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(10),
-                                    child: Image.asset("assets/breaking.jpg",fit: BoxFit.fill,),
+                                    child: Image.network(instance.newsImg,fit: BoxFit.fitHeight,width: double.infinity,),
                                   ),
                                   Positioned(
                                     left: 0,
@@ -146,7 +195,7 @@ class _HomePageState extends State<Home> {
                                         Container(
                                           padding: EdgeInsets.symmetric(horizontal: 5,vertical: 10),
                                             child: Text(
-                                              "News Headline",style: TextStyle(
+                                              instance.newsHead,style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 15,
                                                 fontWeight: FontWeight.w500),
@@ -183,8 +232,9 @@ class _HomePageState extends State<Home> {
                       ),
                     ),
                     ListView.builder(
+
                         shrinkWrap: true,
-                        itemCount: 3,
+                        itemCount: newsModelList.length,
                         itemBuilder: (context, index) {
                           return Container(
                               margin:
@@ -197,9 +247,11 @@ class _HomePageState extends State<Home> {
                                   children: [
                                     ClipRRect(
                                         borderRadius: BorderRadius.circular(15),
-                                        child: Image.asset(
-                                          "assets/breaking.jpg",
-                                        )),
+                                        child: Image.network(
+                                          newsModelList[index].newsImg,fit: BoxFit.fitHeight, height: 230,width: double.infinity,
+                                        )
+                                    ),
+
                                     Positioned(
                                         left: 0,
                                         bottom: 0,
@@ -221,13 +273,13 @@ class _HomePageState extends State<Home> {
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  "News Headline",
+                                                  newsModelList[index].newsHead,
                                                   style: TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 18,
                                                       fontWeight: FontWeight.bold),
                                                 ),
-                                                Text("blah blah blah",style: TextStyle(color: Colors.white,fontSize: 12),)
+                                                Text(newsModelList[index].newsDes.length> 50 ? "${newsModelList[index].newsDes.substring(0,55)}...." : newsModelList[index].newsDes ,style: TextStyle(color: Colors.white,fontSize: 12),)
                                               ],
                                             ),
                                         ),
@@ -236,7 +288,7 @@ class _HomePageState extends State<Home> {
                                 ),
                               ),
                           );
-                        }),
+                        },),
                     Container(
                       padding: EdgeInsets.fromLTRB(0,10,0,5),
                       child: Row(
