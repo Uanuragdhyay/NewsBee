@@ -21,24 +21,33 @@ class _HomePageState extends State<Home> {
     "Top News",
     "India",
     "Finance",
-    "Health"
+    "Health",
+    "Sports"
   ];
   bool isLoading = true;
-  getNewsByQuery(String query)async{
+  getNewsByQuery(String query)async {
+    Map element;
+    int i = 0;
     String url = "https://newsapi.org/v2/everything?q=$query&from=2024-12-30&sortBy=publishedAt&apiKey=5e756d527610412cbb388ff3f434d20f";
     Response response = await get(Uri.parse(url));
     Map data = jsonDecode(response.body);
-      setState(() {
-        data["articles"].forEach((element) {
+    setState(() {
+      for (element in data["articles"]) {
+        try {
+          i++;
           NewsQueryModel newsQueryModel = new NewsQueryModel();
           newsQueryModel = NewsQueryModel.fromMap(element);
           newsModelList.add(newsQueryModel);
           setState(() {
             isLoading = false;
           });
-        });
-      });
-    }
+          if (i == 5) {
+            break;
+          }
+        }catch(e){print(e);};
+
+    }});
+  }
 
 
   getNewsofIndia() async {
@@ -163,7 +172,9 @@ class _HomePageState extends State<Home> {
                   ),
                   items: newsModelListCarousel.map((instance) {
                       return Builder(
-                        builder: (BuildContext context) {
+                        builder: (BuildContext context){
+                          try
+                        {
                           return Container(
                             child: Card(
                               shape: RoundedRectangleBorder(
@@ -207,8 +218,8 @@ class _HomePageState extends State<Home> {
                               ),
                             ),
                           );
-                          },
-                      );
+                        }catch(e){print(e); return Container();}
+                      });
                     },
                   ).toList(),
                 ) ,
@@ -237,6 +248,7 @@ class _HomePageState extends State<Home> {
                         shrinkWrap: true,
                         itemCount: newsModelList.length,
                         itemBuilder: (context, index) {
+                          try{
                           return Container(
                               margin:
                                   EdgeInsets.symmetric(horizontal: 12, vertical: 5),
@@ -289,6 +301,7 @@ class _HomePageState extends State<Home> {
                                 ),
                               ),
                           );
+                          }catch(e){print(e);return Container();}
                         },),
                     Container(
                       padding: EdgeInsets.fromLTRB(0,10,0,5),
